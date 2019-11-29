@@ -6,7 +6,7 @@ pipeline {
                 bat 'mvn -B -DskipTests clean package' 
             }
         }
-        stage('Sonar Scan') { 
+        stage('SonarQube analysis') { 
             steps {
                 bat 'mvn sonar:sonar' 
             }
@@ -21,19 +21,36 @@ pipeline {
                 }
             }
         }
-		stage('upload artifect'){
+		stage('Upload artifect'){
 			steps{
 				archiveArtifacts '/target/*.jar'
 			}
 		}
         stage('Deliver for development') {
+	        when {
+	                branch 'development'
+	            }
             steps {
                 bat """.\\jenkins\\scripts\\deliver.sh"""
             }
         }
-        stage('Deploy for production') {
+        stage('Deploy - Staging') {
             steps {
-                //input message: 'Are You ready for Production Deployment ? (Click "Proceed" to continue)'
+                    echo './deploy staging'
+                    echo './run-smoke-tests'
+                }
+        }
+        stage('Sanity check') {
+            steps {
+                input "Does the staging environment look ok?"
+            }
+        }
+        stage('Deploy for production') {
+	        when {
+	                branch 'production'
+	            }
+            steps {
+                input message: 'Are You ready for Production Deployment ? (Click "Proceed" to continue)'
                 bat """.\\jenkins\\scripts\\production.sh"""
             }
         }
