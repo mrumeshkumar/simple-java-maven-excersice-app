@@ -6,6 +6,11 @@ pipeline {
                 bat 'mvn -B -DskipTests clean package' 
             }
         }
+        stage('Sonar Scan') { 
+            steps {
+                bat 'mvn sonar:sonar' 
+            }
+        }
         stage('Test') {
             steps {
                 bat 'mvn test'

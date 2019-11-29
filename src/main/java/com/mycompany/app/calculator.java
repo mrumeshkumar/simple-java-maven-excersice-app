@@ -1,9 +1,9 @@
 package com.mycompany.app;
 
-public class calculate {
+public class calculator {
 	 private int val1;
 	  private int val2;
-	  public calculate(int val1, int val2){
+	  public calculator(int val1, int val2){
 	    this.val1 = val1;
 	    this.val2 = val2;
 	  }
