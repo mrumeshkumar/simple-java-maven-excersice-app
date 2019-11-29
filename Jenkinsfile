@@ -1,16 +1,12 @@
 pipeline {
-	agent any
-	stages {
-		stage('Build'){
-		    steps{
-		     bat 'mvn -B -DskipTests clean package' 
-		}
-		stage('Static Code Analysis'){
-		    steps{
-		     bat 'mvn sonar:sonar' 
-		     }
-			}
-		stage('Test') {
+    agent any
+    stages {
+        stage('Build') { 
+            steps {
+                bat 'mvn -B -DskipTests clean package' 
+            }
+        }
+        stage('Test') {
             steps {
                 bat 'mvn test'
             }
@@ -25,6 +21,11 @@ pipeline {
                 bat """.\\jenkins\\scripts\\deliver.sh"""
             }
         }
-	}
-}
+        stage('Deploy for production') {
+            steps {
+                //input message: 'Are You ready for Production Deployment ? (Click "Proceed" to continue)'
+                bat """.\\jenkins\\scripts\\production.sh"""
+            }
+        }
+    }
 }
