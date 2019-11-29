@@ -16,6 +16,11 @@ pipeline {
                 }
             }
         }
+		stage('upload artifect'){
+			steps{
+				archiveArtifacts '/target/*.jar'
+			}
+		}
         stage('Deliver for development') {
             steps {
                 bat """.\\jenkins\\scripts\\deliver.sh"""
