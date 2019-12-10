@@ -4,7 +4,7 @@ pipeline {
         string(defaultValue: "TEST", description: 'What environment?', name: 'environment')
     }
     stages {
-         stage('Deliver for QA') {
+         stage('Deploy- QA') {
 	        when {
                     expression {
                         params.environment=="QA"
@@ -14,15 +14,12 @@ pipeline {
                 bat """.\\jenkins\\scripts\\deliver.sh"""
             }
         }
-        stage('Deliver for development') {
-	        when {
-	                branch 'development'
-	            }
-            steps {
-                bat """.\\jenkins\\scripts\\deliver.sh"""
-            }
-        }
         stage('Deploy - Staging') {
+             when {
+                    expression {
+                        params.environment=="stage"
+                    }
+	            }
             steps {
                     echo './deploy staging'
                     echo './run-smoke-tests'
@@ -30,7 +27,9 @@ pipeline {
         }
         stage('Deploy for production') {
 	        when {
-	                branch 'production'
+                    expression {
+                        params.environment=="production"
+                    }
 	            }
             steps {
                 input message: 'Are You ready for Production Deployment ? (Click "Proceed" to continue)'
