@@ -14,27 +14,34 @@ pipeline {
       }
        stage ('Deploy-QA') {
             steps {
-                build job: 'Deploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "QA")]
+                 parallel(
+                        "AzureDeploy": { build job: 'AzureDeploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "QA")]},
+                        "AWSDeploy": { build job: 'AWSDeploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "QA")]},
+                        "GCPDeploy": {build job: 'GCPDeploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "QA")]},
+                        "OnPremDeploy": {build job: 'OnPremDeploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "QA")]}
+                     )   
+                
             }
         }
        stage('Test-QA') {
          steps {
             parallel(
-              "End-To-End": {build job: 'C1-Reg', propagate: true, wait: true},
-              "Integration": {build job: 'C2-Billing', propagate: true, wait: true},
-              "Panetration": {build job: 'C3-Coding', propagate: true, wait: true},
-              "Performance": {build job: 'C4-Eligibility', propagate: true, wait: true}
+                "End-To-End": {build job: 'C1-Reg', propagate: true, wait: true},
+                "Integration": {build job: 'C2-Billing', propagate: true, wait: true},
+                "Panetration": {build job: 'C3-Coding', propagate: true, wait: true},
+                "Performance": {build job: 'C4-Eligibility', propagate: true, wait: true}
             )
           }
       }
         stage('Deploy-Stage') {
          steps {
             parallel(
-              "Azure-Deploy": { build job: 'C1-Reg', propagate: true, wait: true},
-              "AWS-Deploy": {build job: 'C2-Billing', propagate: true, wait: true},
-              "GCP-Deploy": { build job: 'C3-Coding', propagate: true, wait: true},
-              "On-PremDataCenter": {build job: 'C4-Eligibility', propagate: true, wait: true}
-            )
+                        "AzureDeploy": { build job: 'AzureDeploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "stage")]},
+                        "AWSDeploy": { build job: 'AWSDeploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "stage")]},
+                        "GCPDeploy": {build job: 'GCPDeploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "stage")]},
+                        "OnPremDeploy": {build job: 'OnPremDeploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "stage")]}
+                     )   
+
           }
       }
        stage('Test-Stage') {
@@ -54,7 +61,12 @@ pipeline {
         }
       stage ('Production') {
             steps {
-                build job: 'C1-Reg', propagate: true, wait: true
+                parallel(
+                        "AzureDeploy": { build job: 'AzureDeploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "production")]},
+                        "AWSDeploy": { build job: 'AWSDeploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "production")]},
+                        "GCPDeploy": {build job: 'GCPDeploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "production")]},
+                        "OnPremDeploy": {build job: 'OnPremDeploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "production")]}
+                     )   
             }
         }
    }

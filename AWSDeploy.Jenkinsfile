@@ -4,6 +4,41 @@ pipeline {
         string(defaultValue: "TEST", description: 'What environment?', name: 'environment')
     }
     stages {
+        stage('Get Base Image') {
+            steps {
+                    echo 'Get Base Image From artifactory'
+                }
+        }
+         stage('Configure-SubNet-QA') {
+	        when {
+                    expression {
+                        params.environment=="QA"
+                    }
+	            }
+            steps {
+                echo 'Configure QA SubNet'
+            }
+        }
+         stage('Configure-SubNet-Stage') {
+            when {
+                    expression {
+                        params.environment=="stage"
+                    }
+	            }
+            steps {
+                echo 'Configure stage SubNet'
+            }
+        }
+        stage('Configure-SubNet-Production') {
+            when {
+                    expression {
+                        params.environment=="production"
+                    }
+	            }
+            steps {
+                echo 'Configure Production SubNet'
+            }
+        }
          stage('Deploy- QA') {
 	        when {
                     expression {
@@ -39,12 +74,22 @@ pipeline {
     }
     post {
 	    always {
-	    	echo 'Build Completed succesfully'
+	    	echo 'Build Completed succesfully. Build Pipeline: ${currentBuild.fullDisplayName}'
 	       // mail to: 'mrumeshkumar@hotmail.com',subject: "Build Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}"
 	    }
 	    failure {
 	   		 echo 'Build Failed !'
         //mail to: 'mrumeshkumar@hotmail.com',subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",body: "Something is wrong with ${env.BUILD_URL}"
    			 }
+        success {
+            echo 'This will run only if successful'
+        }
+        unstable {
+            echo 'This will run only if the run was marked as unstable'
+        }
+        changed {
+            echo 'This will run only if the state of the Pipeline has changed'
+            echo 'For example, if the Pipeline was previously failing but is now successful'
+        }
     }
 }
