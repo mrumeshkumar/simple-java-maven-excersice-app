@@ -21,7 +21,7 @@ pipeline {
                 }
             }
         }
-		stage('upload artifect'){
+		stage('Upload Artifect'){
 			steps{
 				archiveArtifacts '/target/*.jar'
 			}
