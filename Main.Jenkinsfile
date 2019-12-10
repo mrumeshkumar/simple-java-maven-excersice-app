@@ -14,7 +14,7 @@ pipeline {
       }
        stage ('Deploy-QA') {
             steps {
-                build job: 'C1-Reg', propagate: true, wait: true
+                build job: 'Deploy', propagate: true, wait: true
             }
         }
        stage('Test-QA') {

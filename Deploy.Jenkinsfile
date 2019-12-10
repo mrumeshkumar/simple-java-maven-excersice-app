@@ -4,6 +4,14 @@ pipeline {
         string(defaultValue: "TEST", description: 'What environment?', name: 'environment')
     }
     stages {
+         stage('Deliver for QA') {
+	        when {
+	                branch ${params.environment}== "QA"
+	            }
+            steps {
+                bat """.\\jenkins\\scripts\\deliver.sh"""
+            }
+        }
         stage('Deliver for development') {
 	        when {
 	                branch 'development'
