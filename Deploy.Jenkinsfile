@@ -6,7 +6,9 @@ pipeline {
     stages {
          stage('Deliver for QA') {
 	        when {
-	                branch "${params.environment}=="QA""
+                    expression {
+                        params.environment=="QA"
+                    }
 	            }
             steps {
                 bat """.\\jenkins\\scripts\\deliver.sh"""
