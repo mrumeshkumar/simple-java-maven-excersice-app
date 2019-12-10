@@ -9,7 +9,7 @@ pipeline {
                     echo 'Get Base Image From artifactory'
                 }
         }
-         stage('Configure-SubNet') {
+         stage('Configure-SubNet-QA') {
 	        when {
                     expression {
                         params.environment=="QA"
@@ -18,6 +18,8 @@ pipeline {
             steps {
                 echo 'Configure QA SubNet'
             }
+        }
+         stage('Configure-SubNet-Stage') {
             when {
                     expression {
                         params.environment=="stage"
@@ -26,13 +28,15 @@ pipeline {
             steps {
                 echo 'Configure stage SubNet'
             }
+        }
+        stage('Configure-SubNet-Production') {
             when {
                     expression {
                         params.environment=="production"
                     }
 	            }
             steps {
-                echo 'Configure production SubNet'
+                echo 'Configure Production SubNet'
             }
         }
          stage('Deploy- QA') {
