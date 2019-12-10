@@ -14,7 +14,7 @@ pipeline {
       }
        stage ('Deploy-QA') {
             steps {
-                build job: 'Deploy', propagate: true, wait: true
+                build job: 'Deploy', propagate: true, wait: true ,parameters: [string(name: 'environment', value: "QA")]
             }
         }
        stage('Test-QA') {
