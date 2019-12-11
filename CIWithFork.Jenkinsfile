@@ -32,6 +32,21 @@ pipeline {
                     }
 			}
 		}
+        stage('Notify'){
+			steps{
+				echo 'Notify To Teams.'
+			}
+		}
+         stage('Escalate'){
+            when{
+                 expression {
+                       currentBuild.result == 'Failed'
+                    } 
+             }
+			steps{
+				echo 'Escalation email to Team'
+			}
+		}
     }
     post {
 	    always {
