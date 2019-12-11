@@ -25,7 +25,7 @@ pipeline {
 		stage('Upload Artifect'){
             when{
                  expression {
-                       currentBuild.result == 'Sucess'
+                       currentBuild.result == 'SUCCESS'
                     } 
              }
 			steps{
@@ -40,7 +40,7 @@ pipeline {
         stage('Notify'){
              when{
                  expression {
-                       currentBuild.result == 'Sucess'
+                       currentBuild.result == 'SUCCESS'
                     } 
              }
 			steps{
@@ -50,7 +50,7 @@ pipeline {
          stage('Escalate'){
             when{
                  expression {
-                       currentBuild.result == 'Failed'
+                       currentBuild.result == 'FAILURE'
                     } 
              }
 			steps{
