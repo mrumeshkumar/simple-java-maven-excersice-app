@@ -54,7 +54,7 @@ pipeline {
         }
          stage('Performance-Test') {
 	         when {
-                    expression {params.testtype=="Penetration"}
+                    expression {params.testtype=="Performance"}
 	            }
             steps {
                 parallel(
