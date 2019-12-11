@@ -14,15 +14,9 @@ pipeline {
         stage('Unit Test') {
             steps {
                 parallel(
-                    "Junit": {
-                        bat 'mvn test'
-                    },
-                    "DB-Unit": {
-                        echo 'DB Unit Test'
-                    },
-                    "Jesmine": {
-                        echo 'Jesmine Test'
-                    }
+                    "Junit": {bat 'mvn test'},
+                    "DB-Unit": {echo 'DB Unit Test'},
+                    "Jesmine": {echo 'Jesmine Test'}
                 )
             }
             post {
