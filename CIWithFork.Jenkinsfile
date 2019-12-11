@@ -62,6 +62,7 @@ pipeline {
     post {
 	    always {
 	    	echo 'Build Completed succesfully'
+            echo "RESULT: ${currentBuild.result}"
 	    }
 	    failure {
 	   		 echo 'Escalation email to Team'
