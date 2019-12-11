@@ -7,10 +7,10 @@ pipeline {
             }
             post{
 			    success {
-                        currentBuild.result = 'SUCCESS'
+                        setBuildResult('SUCCESS')
                     }
                 failure {
-	   		             currentBuild.result = 'FAILURE'
+	   		             setBuildResult('FAILURE')
   			        }
 			}
         }
@@ -21,10 +21,10 @@ pipeline {
             }
             post{
 			    success {
-                        currentBuild.result = 'SUCCESS'
+                        setBuildResult('SUCCESS')
                     }
-                    failure {
-	   		             currentBuild.result = 'FAILURE'
+                failure {
+	   		             setBuildResult('FAILURE')
   			        }
 			}
         }
@@ -38,10 +38,10 @@ pipeline {
                     junit 'target/surefire-reports/*.xml'
                 }
 			    success {
-                        currentBuild.result = 'SUCCESS'
+                        setBuildResult('SUCCESS')
                     }
-                    failure {
-	   		             currentBuild.result = 'FAILURE'
+                failure {
+	   		             setBuildResult('FAILURE')
   			        }
             }
         }
@@ -56,10 +56,10 @@ pipeline {
 			}
 			post{
 			    success {
-                        echo 'This will run only if successful'
+                        setBuildResult('SUCCESS')
                     }
-                    failure {
-	   		             currentBuild.result = 'FAILURE'
+                failure {
+	   		             setBuildResult('FAILURE')
   			        }
 			}
 		}
