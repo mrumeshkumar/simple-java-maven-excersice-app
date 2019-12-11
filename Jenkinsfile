@@ -26,7 +26,7 @@ pipeline {
 				archiveArtifacts '/target/*.jar'
 			}
 		}
-        stage('Deliver for development') {
+        stage('Push To Development') {
 	        when {
 	                branch 'development'
 	            }
@@ -34,7 +34,7 @@ pipeline {
                 bat """.\\jenkins\\scripts\\deliver.sh"""
             }
         }
-        stage('Deploy - Staging') {
+        stage('Push To Staging') {
             steps {
                     echo './deploy staging'
                     echo './run-smoke-tests'
@@ -45,7 +45,7 @@ pipeline {
                 input "Does the staging environment look ok?"
             }
         }
-        stage('Deploy for production') {
+        stage('Push To Production') {
 	        when {
 	                branch 'production'
 	            }
