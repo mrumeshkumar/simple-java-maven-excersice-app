@@ -5,12 +5,28 @@ pipeline {
             steps {
                 bat 'mvn -B -DskipTests clean package' 
             }
+            post{
+			    success {
+                        currentBuild.result = 'SUCCESS'
+                    }
+                failure {
+	   		             currentBuild.result = 'FAILURE'
+  			        }
+			}
         }
         stage('SonarQube Analysis') { 
             steps {
                // bat 'mvn sonar:sonar' 
                echo 'Build Completed succesfully'
             }
+            post{
+			    success {
+                        currentBuild.result = 'SUCCESS'
+                    }
+                    failure {
+	   		             currentBuild.result = 'FAILURE'
+  			        }
+			}
         }
         stage('Test') {
             steps {
@@ -21,6 +37,12 @@ pipeline {
                 always {
                     junit 'target/surefire-reports/*.xml'
                 }
+			    success {
+                        currentBuild.result = 'SUCCESS'
+                    }
+                    failure {
+	   		             currentBuild.result = 'FAILURE'
+  			        }
             }
         }
 		stage('Upload Artifect'){
@@ -36,6 +58,9 @@ pipeline {
 			    success {
                         echo 'This will run only if successful'
                     }
+                    failure {
+	   		             currentBuild.result = 'FAILURE'
+  			        }
 			}
 		}
         stage('Notify'){
