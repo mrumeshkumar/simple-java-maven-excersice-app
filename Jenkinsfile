@@ -6,7 +6,7 @@ pipeline {
                 bat 'mvn -B -DskipTests clean package' 
             }
         }
-        stage('SonarQube analysis') { 
+        stage('SonarQube Analysis') { 
             steps {
                 bat 'mvn sonar:sonar' 
             }
@@ -21,7 +21,7 @@ pipeline {
                 }
             }
         }
-		stage('Upload artifect'){
+		stage('Upload Artifect'){
 			steps{
 				archiveArtifacts '/target/*.jar'
 			}
@@ -40,7 +40,7 @@ pipeline {
                     echo './run-smoke-tests'
                 }
         }
-        stage('Sanity check') {
+        stage('Sanity Check') {
             steps {
                 input "Does the staging environment look ok?"
             }
