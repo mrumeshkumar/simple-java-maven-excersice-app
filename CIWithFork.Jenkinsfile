@@ -8,7 +8,8 @@ pipeline {
         }
         stage('SonarQube Analysis') { 
             steps {
-                bat 'mvn sonar:sonar' 
+               // bat 'mvn sonar:sonar' 
+               echo 'Build Completed succesfully'
             }
         }
         stage('Test') {
@@ -31,15 +32,13 @@ pipeline {
                     }
 			}
 		}
-		
     }
     post {
 	    always {
 	    	echo 'Build Completed succesfully'
-	       // mail to: 'mrumeshkumar@hotmail.com',subject: "Build Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}"
 	    }
 	    failure {
-	   		 echo 'Escaltion email to Team'
+	   		 echo 'Escalation email to Team'
   			 }
     }
 }
