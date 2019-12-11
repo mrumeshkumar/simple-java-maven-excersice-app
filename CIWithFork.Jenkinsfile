@@ -23,6 +23,11 @@ pipeline {
             }
         }
 		stage('Upload Artifect'){
+            when{
+                 expression {
+                       currentBuild.result == 'Sucess'
+                    } 
+             }
 			steps{
 				archiveArtifacts '/target/*.jar'
 			}
@@ -33,6 +38,11 @@ pipeline {
 			}
 		}
         stage('Notify'){
+             when{
+                 expression {
+                       currentBuild.result == 'Sucess'
+                    } 
+             }
 			steps{
 				echo 'Notify To Teams.'
 			}
