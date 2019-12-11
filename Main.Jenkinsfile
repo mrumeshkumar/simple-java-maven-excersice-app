@@ -47,10 +47,10 @@ pipeline {
        stage('Test-Stage') {
          steps {
             parallel(
-              "EndToEnd": {build job: 'C1-Reg', propagate: true, wait: true},
-              "Integration": {build job: 'C2-Billing', propagate: true, wait: true},
-              "Penetration": {build job: 'C3-Coding', propagate: true, wait: true},
-              "Performance": {build job: 'C4-Eligibility', propagate: true, wait: true}
+              "EndToEnd": {build job: 'QualityCheck', propagate: true, wait: true,parameters: [string(name: 'testtype', value: "EndToEnd")]},
+              "Integration": {build job: 'QualityCheck', propagate: true, wait: true,parameters: [string(name: 'testtype', value: "Integration")]},
+              "Penetration": {build job: 'QualityCheck', propagate: true, wait: true,parameters: [string(name: 'testtype', value: "Penetration")]},
+              "Performance": {build job: 'QualityCheck', propagate: true, wait: true,parameters: [string(name: 'testtype', value: "Performance")]}
             )
           }
       }
