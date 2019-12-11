@@ -11,7 +11,7 @@ pipeline {
                 bat 'mvn sonar:sonar' 
             }
         }
-        stage('Unit-Test') {
+        stage('Unit Test') {
             steps {
                 parallel(
                     "Junit": {bat 'mvn test'},
@@ -31,11 +31,12 @@ pipeline {
 			}
 		}
         
-         post {
+    }
+     post {
 	    always {
 	    	echo 'Build Completed succesfully. Build Pipeline: ${currentBuild.fullDisplayName}'
-             logstashSend failBuild: false, maxLines: 10000
-	       // mail to: 'mrumeshkumar@hotmail.com',subject: "Build Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}"
+	        logstashSend failBuild: false, maxLines: 10000
+           // mail to: 'mrumeshkumar@hotmail.com',subject: "Build Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}"
 	    }
 	    failure {
 	   		 echo 'Build Failed !'
@@ -51,6 +52,5 @@ pipeline {
             echo 'This will run only if the state of the Pipeline has changed'
             echo 'For example, if the Pipeline was previously failing but is now successful'
         }
-    }
     }
 }
