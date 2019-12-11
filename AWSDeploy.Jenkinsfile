@@ -67,7 +67,7 @@ pipeline {
                     }
 	            }
             steps {
-                input message: 'Are You ready for Production Deployment ? (Click "Proceed" to continue)'
+               // input message: 'Are You ready for Production Deployment ? (Click "Proceed" to continue)'
                 bat """.\\jenkins\\scripts\\production.sh"""
             }
         }

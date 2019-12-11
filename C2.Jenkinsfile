@@ -11,9 +11,19 @@ pipeline {
                 bat 'mvn sonar:sonar' 
             }
         }
-        stage('Test') {
+        stage('Unit-Test') {
             steps {
-                bat 'mvn test'
+                parallel(
+                    "Junit": {
+                        bat 'mvn test'
+                    },
+                    "DB-Unit": {
+                        echo 'DB Unit Test'
+                    },
+                    "Jesmine": {
+                        echo 'Jesmine Test'
+                    }
+                )
             }
             post {
                 always {
