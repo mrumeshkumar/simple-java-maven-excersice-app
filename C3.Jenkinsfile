@@ -40,6 +40,7 @@ pipeline {
          post {
 	    always {
 	    	echo 'Build Completed succesfully. Build Pipeline: ${currentBuild.fullDisplayName}'
+             logstashSend failBuild: false, maxLines: 10000
 	       // mail to: 'mrumeshkumar@hotmail.com',subject: "Build Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}"
 	    }
 	    failure {
