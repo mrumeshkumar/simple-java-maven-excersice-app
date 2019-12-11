@@ -15,6 +15,7 @@ pipeline {
         stage('Test') {
             steps {
                 bat 'mvn test'
+                echo "RESULT: ${currentBuild.result}"
             }
             post {
                 always {
