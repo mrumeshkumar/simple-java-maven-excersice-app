@@ -3,14 +3,36 @@ pipeline {
 
    stages {
       stage('Build') {
-         steps {
-            parallel(
-              "C1-Reg": { build job: 'C1-Reg', propagate: true, wait: true},
-              "C2-Billing": { build job: 'C2-Billing', propagate: true, wait: true},
-              "C3-Coding": {build job: 'C3-Coding', propagate: true, wait: true},
-              "C4-Eligibility": {build job: 'C4-Eligibility', propagate: true, wait: true}
-            )
-          }
+           parallel {
+               stage('C1-Reg') {
+                   steps {
+                    build job: 'C1-Reg', propagate: true, wait: true
+                   }
+               }
+               stage('C2-Billing') {
+                   steps {
+                    build job: 'C2-Billing', propagate: true, wait: true
+                   }
+               }
+               stage('C3-Coding') {
+                   steps {
+                    build job: 'C3-Coding', propagate: true, wait: true
+                   }
+               }
+                stage('C4-Eligibility') {
+                   steps {
+                   build job: 'C4-Eligibility', propagate: true, wait: true
+                   }
+               }
+            }
+  //       steps {
+   //         parallel(
+    //          "C1-Reg": { build job: 'C1-Reg', propagate: true, wait: true},
+    //          "C2-Billing": { build job: 'C2-Billing', propagate: true, wait: true},
+    //          "C3-Coding": {build job: 'C3-Coding', propagate: true, wait: true},
+    //          "C4-Eligibility": {build job: 'C4-Eligibility', propagate: true, wait: true}
+    //        )
+    //      }
       }
        stage ('Deploy-QA') {
             steps {
