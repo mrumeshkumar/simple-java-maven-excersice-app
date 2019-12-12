@@ -22,7 +22,7 @@ pipeline {
 		stage('Upload Artifect'){
             when{
                  expression {
-                       currentBuild.result == 'SUCCESS'
+                       currentBuild.currentResult == 'SUCCESS'
                     } 
              }
 			steps{
