@@ -16,6 +16,7 @@ pipeline {
                         currentBuild.result = 'FAILURE'
                         }
 	   			    }   
+            }
         }
         stage('SonarQube Analysis') { 
             steps {
@@ -32,7 +33,8 @@ pipeline {
                      script {
                         currentBuild.result = 'FAILURE'
                         }
-			        }   
+			        }  
+            }
         }
         stage('Test') {
             steps {
@@ -54,6 +56,7 @@ pipeline {
                         }
                     }
                 }
+        }
 		stage('Upload Artifect'){
             when{
                  expression {
@@ -75,6 +78,7 @@ pipeline {
                          }
 			        }
 		        }
+        }
         stage('Notify'){
              when{
                  expression {
