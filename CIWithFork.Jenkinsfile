@@ -17,6 +17,7 @@ pipeline {
             steps {
                 bat 'mvn test'
                 echo "RESULT: ${currentBuild.currentResult}"
+                bat 'exit 1'
             }
         }
 		stage('Upload Artifect'){
