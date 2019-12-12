@@ -8,12 +8,12 @@ pipeline {
             post{
 			    success {
                     script {
-                        currentBuild.result = 'SUCCESS'
+                        currentBuild.currentResult = 'SUCCESS'
                         }
                     }
                 failure {
                      script {
-                        currentBuild.result = 'FAILURE'
+                        currentBuild.currentResult = 'FAILURE'
                         }
 	   			    }   
             }
@@ -26,12 +26,12 @@ pipeline {
             post{
 			    success {
                     script {
-                        currentBuild.result = 'SUCCESS'
+                        currentBuild.currentResult = 'SUCCESS'
                         }
                     }                
                 failure {
                      script {
-                        currentBuild.result = 'FAILURE'
+                        currentBuild.currentResult = 'FAILURE'
                         }
 			        }  
             }
@@ -47,12 +47,12 @@ pipeline {
                 }
 			    success {
                     script {
-                        currentBuild.result = 'SUCCESS'
+                        currentBuild.currentResult = 'SUCCESS'
                         }
                     }
                 failure {
                      script {
-                        currentBuild.result = 'FAILURE'
+                        currentBuild.currentResult = 'FAILURE'
                         }
                     }
                 }
@@ -69,12 +69,12 @@ pipeline {
 			post{
 			    success {
                     script {
-                          currentBuild.result = 'SUCCESS'
+                          currentBuild.currentResult = 'SUCCESS'
                          }
                     } 
                 failure {
                     script {
-                          currentBuild.result = 'FAILURE'
+                          currentBuild.currentResult = 'FAILURE'
                          }
 			        }
 		        }
@@ -82,7 +82,7 @@ pipeline {
         stage('Notify'){
              when{
                  expression {
-                       currentBuild.result == 'SUCCESS'
+                       currentBuild.currentResult == 'SUCCESS'
                     } 
              }
 			steps{
@@ -92,7 +92,7 @@ pipeline {
          stage('Escalate'){
             when{
                  expression {
-                       currentBuild.result == 'FAILURE'
+                       currentBuild.currentResult == 'FAILURE'
                     } 
              }
 			steps{
