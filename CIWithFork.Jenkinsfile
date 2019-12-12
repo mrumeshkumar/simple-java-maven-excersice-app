@@ -7,12 +7,14 @@ pipeline {
             }
             post{
 			    success {
-                        setBuildResult('SUCCESS')
+                    script {
+                        currentBuild.result = 'SUCCESS'
                     }
                 failure {
-	   		             setBuildResult('FAILURE')
-  			        }
-			}
+                     script {
+                        currentBuild.result = 'FAILURE'
+                    }
+	   			}
         }
         stage('SonarQube Analysis') { 
             steps {
@@ -20,12 +22,14 @@ pipeline {
                echo 'Build Completed succesfully'
             }
             post{
-			    success {
-                        setBuildResult('SUCCESS')
+			     success {
+                    script {
+                        currentBuild.result = 'SUCCESS'
                     }
                 failure {
-	   		             setBuildResult('FAILURE')
-  			        }
+                     script {
+                        currentBuild.result = 'FAILURE'
+                    }
 			}
         }
         stage('Test') {
@@ -37,12 +41,14 @@ pipeline {
                 always {
                     junit 'target/surefire-reports/*.xml'
                 }
-			    success {
-                        setBuildResult('SUCCESS')
+			     success {
+                    script {
+                        currentBuild.result = 'SUCCESS'
                     }
                 failure {
-	   		             setBuildResult('FAILURE')
-  			        }
+                     script {
+                        currentBuild.result = 'FAILURE'
+                    }
             }
         }
 		stage('Upload Artifect'){
@@ -55,12 +61,14 @@ pipeline {
 				archiveArtifacts '/target/*.jar'
 			}
 			post{
-			    success {
-                        setBuildResult('SUCCESS')
+			     success {
+                    script {
+                        currentBuild.result = 'SUCCESS'
                     }
                 failure {
-	   		             setBuildResult('FAILURE')
-  			        }
+                     script {
+                        currentBuild.result = 'FAILURE'
+                    }
 			}
 		}
         stage('Notify'){
