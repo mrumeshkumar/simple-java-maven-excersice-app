@@ -17,7 +17,10 @@ pipeline {
             steps {
                 bat 'mvn test'
                 echo "RESULT: ${currentBuild.currentResult}"
-                bat "exit 1"
+                
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    bat "exit 1"
+                }
             }
             post {  // 'stage 3'
                 failure {
