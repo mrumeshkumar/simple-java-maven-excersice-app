@@ -18,7 +18,7 @@ pipeline {
                 bat 'mvn test'
                 echo "RESULT: ${currentBuild.currentResult}"
                 
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                catchError(currentBuildResult: 'SUCCESS', currentStageResult: 'FAILURE') {
                     bat "exit 1"
                 }
             }
