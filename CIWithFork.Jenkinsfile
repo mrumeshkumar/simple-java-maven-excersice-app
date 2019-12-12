@@ -4,18 +4,7 @@ pipeline {
         stage('Build') { 
             steps {
                 bat 'mvn -B -DskipTests clean package' 
-            }
-            post{
-			    success {
-                    script {
-                        currentBuild.currentResult = 'SUCCESS'
-                        }
-                    }
-                failure {
-                     script {
-                        currentBuild.currentResult = 'FAILURE'
-                        }
-	   			    }   
+                echo "RESULT: ${currentBuild.currentResult}"
             }
         }
         stage('SonarQube Analysis') { 
@@ -23,39 +12,12 @@ pipeline {
                // bat 'mvn sonar:sonar' 
                echo 'Build Completed succesfully'
             }
-            post{
-			    success {
-                    script {
-                        currentBuild.currentResult = 'SUCCESS'
-                        }
-                    }                
-                failure {
-                     script {
-                        currentBuild.currentResult = 'FAILURE'
-                        }
-			        }  
-            }
         }
         stage('Test') {
             steps {
                 bat 'mvn test'
-                echo "RESULT: ${currentBuild.result}"
+                echo "RESULT: ${currentBuild.currentResult}"
             }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-			    success {
-                    script {
-                        currentBuild.currentResult = 'SUCCESS'
-                        }
-                    }
-                failure {
-                     script {
-                        currentBuild.currentResult = 'FAILURE'
-                        }
-                    }
-                }
         }
 		stage('Upload Artifect'){
             when{
@@ -66,18 +28,6 @@ pipeline {
 			steps{
 				archiveArtifacts '/target/*.jar'
 			}
-			post{
-			    success {
-                    script {
-                          currentBuild.currentResult = 'SUCCESS'
-                         }
-                    } 
-                failure {
-                    script {
-                          currentBuild.currentResult = 'FAILURE'
-                         }
-			        }
-		        }
         }
         stage('Notify'){
              when{
