@@ -9,12 +9,13 @@ pipeline {
 			    success {
                     script {
                         currentBuild.result = 'SUCCESS'
+                        }
                     }
                 failure {
                      script {
                         currentBuild.result = 'FAILURE'
-                    }
-	   			}
+                        }
+	   			    }   
         }
         stage('SonarQube Analysis') { 
             steps {
@@ -22,15 +23,16 @@ pipeline {
                echo 'Build Completed succesfully'
             }
             post{
-			     success {
+			    success {
                     script {
                         currentBuild.result = 'SUCCESS'
-                    }
+                        }
+                    }                
                 failure {
                      script {
                         currentBuild.result = 'FAILURE'
-                    }
-			}
+                        }
+			        }   
         }
         stage('Test') {
             steps {
@@ -41,16 +43,17 @@ pipeline {
                 always {
                     junit 'target/surefire-reports/*.xml'
                 }
-			     success {
+			    success {
                     script {
                         currentBuild.result = 'SUCCESS'
+                        }
                     }
                 failure {
                      script {
                         currentBuild.result = 'FAILURE'
+                        }
                     }
-            }
-        }
+                }
 		stage('Upload Artifect'){
             when{
                  expression {
@@ -61,16 +64,17 @@ pipeline {
 				archiveArtifacts '/target/*.jar'
 			}
 			post{
-			     success {
+			    success {
                     script {
-                        currentBuild.result = 'SUCCESS'
-                    }
+                          currentBuild.result = 'SUCCESS'
+                         }
+                    } 
                 failure {
-                     script {
-                        currentBuild.result = 'FAILURE'
-                    }
-			}
-		}
+                    script {
+                          currentBuild.result = 'FAILURE'
+                         }
+			        }
+		        }
         stage('Notify'){
              when{
                  expression {
