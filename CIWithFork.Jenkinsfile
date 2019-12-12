@@ -17,7 +17,9 @@ pipeline {
             steps {
                 bat 'mvn test'
                 echo "RESULT: ${currentBuild.currentResult}"
-                bat 'exit 1'
+               catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh "exit 1"
+                }
             }
         }
 		stage('Upload Artifect'){
