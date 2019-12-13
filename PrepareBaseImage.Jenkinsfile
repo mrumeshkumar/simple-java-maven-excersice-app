@@ -31,6 +31,11 @@ pipeline {
                             echo 'Install Redis Server'
                     }
                  }
+                 stage("Uplod Image on Artifactory") {
+                    steps {
+                            echo 'Install Redis Server'
+                    }
+                 }
             }
             post {
                 success {
@@ -56,16 +61,21 @@ pipeline {
                             echo 'Setup Firewall Rule'
                         }
                     }
-                 stage("Install Jboss Web Server") {
+                stage("Install Jboss Web Server") {
                     steps {
                             echo 'Install Jboss Web Server'
                         }
                     }
-                 stage("Install Redis Server") {
+                stage("Install Redis Server") {
                     steps {
                             echo 'Install Redis Server'
                         }
                     }
+                stage("Uplod Image on Artifactory") {
+                    steps {
+                            echo 'Install Redis Server'
+                    }
+                 }
             }
             
         }
@@ -86,16 +96,21 @@ pipeline {
                             echo 'Setup Firewall Rule'
                         }
                     }
-                 stage("Install Jboss Web Server") {
+                stage("Install Jboss Web Server") {
                     steps {
                             echo 'Install Jboss Web Server'
                         }
                     }
-                 stage("Install Redis Server") {
+                stage("Install Redis Server") {
                     steps {
                             echo 'Install Redis Server'
                         }
                     }
+                stage("Uplod Image on Artifactory") {
+                    steps {
+                            echo 'Install Redis Server'
+                    }
+                 }
             }
             
         }
@@ -116,16 +131,21 @@ pipeline {
                             echo 'Setup Firewall Rule'
                         }
                     }
-                 stage("Install Jboss Web Server") {
+                stage("Install Jboss Web Server") {
                     steps {
                             echo 'Install Jboss Web Server'
                         }
                     }
-                 stage("Install Redis Server") {
+                stage("Install Redis Server") {
                     steps {
                             echo 'Install Redis Server'
                         }
                     }
+                stage("Uplod Image on Artifactory") {
+                    steps {
+                            echo 'Install Redis Server'
+                    }
+                 }
             }
             
         }
@@ -138,7 +158,7 @@ pipeline {
 	       // mail to: 'mrumeshkumar@hotmail.com',subject: "Build Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}"
 	    }
 	    failure {
-	   		 echo 'Build Failed !'
+	   		 echo 'Build Failed ! Initiate RollBack'
         //mail to: 'mrumeshkumar@hotmail.com',subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",body: "Something is wrong with ${env.BUILD_URL}"
    			 }
         success {

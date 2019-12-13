@@ -60,7 +60,7 @@ pipeline {
                     echo './run-smoke-tests'
                 }
         }
-        stage('Deploy for production') {
+        stage('Deploy - Production') {
 	        when {
                     expression {
                         params.environment=="production"
@@ -79,7 +79,7 @@ pipeline {
 	       // mail to: 'mrumeshkumar@hotmail.com',subject: "Build Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}"
 	    }
 	    failure {
-	   		 echo 'Build Failed !'
+	   		  echo 'Build Failed ! Initiate RollBack'
         //mail to: 'mrumeshkumar@hotmail.com',subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",body: "Something is wrong with ${env.BUILD_URL}"
    			 }
         success {

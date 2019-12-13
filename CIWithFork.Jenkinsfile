@@ -68,6 +68,7 @@ pipeline {
 	    }
 	    failure {
 	   		 echo 'Escalation email to Team'
+             echo 'Build Failed ! Initiate RollBack'
   			 }
     }
 }
