@@ -31,6 +31,11 @@ pipeline {
                             echo 'Install Redis Server'
                     }
                  }
+                stage("Test Image") {
+                    steps {
+                            echo 'Test Image'
+                        }
+                }
                  stage("Uplod Image on Artifactory") {
                     steps {
                             echo 'Install Redis Server'
@@ -71,6 +76,11 @@ pipeline {
                             echo 'Install Redis Server'
                         }
                     }
+                stage("Test Image") {
+                    steps {
+                            echo 'Test Image'
+                        }
+                }
                 stage("Uplod Image on Artifactory") {
                     steps {
                             echo 'Install Redis Server'
@@ -106,6 +116,11 @@ pipeline {
                             echo 'Install Redis Server'
                         }
                     }
+                stage("Test Image") {
+                    steps {
+                            echo 'Test Image'
+                        }
+                }   
                 stage("Uplod Image on Artifactory") {
                     steps {
                             echo 'Install Redis Server'
@@ -141,6 +156,11 @@ pipeline {
                             echo 'Install Redis Server'
                         }
                     }
+                stage("Test Image") {
+                    steps {
+                            echo 'Test Image'
+                        }
+                }
                 stage("Uplod Image on Artifactory") {
                     steps {
                             echo 'Install Redis Server'
