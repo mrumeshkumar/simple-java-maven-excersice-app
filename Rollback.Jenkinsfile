@@ -13,7 +13,7 @@ pipeline {
             stages {
                 stage("Rollback") {
                     steps {
-                               echo 'Rollback successful'
+                        echo 'Rollback successful'
                     }
                 }
             }
