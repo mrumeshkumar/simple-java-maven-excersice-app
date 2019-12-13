@@ -72,6 +72,19 @@ pipeline {
             steps {
                // input message: 'Are You ready for Production Deployment ? (Click "Proceed" to continue)'
                 bat """.\\jenkins\\scripts\\production.sh"""
+                 catchError() {
+                        bat "exit 1"
+                    }
+            }
+        }
+        stage('Rollback - Production') {
+	        when {
+                    expression {
+                       currentBuild.currentResult == 'FAILURE'
+                    } 
+	            }
+            steps {
+                    build job: 'DeploymentRollback', propagate: true, wait: true ,parameters: [string(name: 'InfraProvider', value: "azure")]
             }
         }
     }
@@ -83,7 +96,7 @@ pipeline {
 	    }
 	    failure {
 	   		  echo 'Build Failed ! Initiate RollBack'
-              build job: 'DeploymentRollback', propagate: true, wait: true ,parameters: [string(name: 'InfraProvider', value: "azure")]
+              
    			 }
         success {
             echo 'This will run only if successful'
