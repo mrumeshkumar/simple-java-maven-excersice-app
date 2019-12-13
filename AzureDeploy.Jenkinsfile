@@ -80,7 +80,7 @@ pipeline {
 	    }
 	    failure {
 	   		  echo 'Build Failed ! Initiate RollBack'
-        //mail to: 'mrumeshkumar@hotmail.com',subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",body: "Something is wrong with ${env.BUILD_URL}"
+              build job: 'DeploymentRollback', propagate: true, wait: true ,parameters: [string(name: 'InfraProvider', value: "azure")]
    			 }
         success {
             echo 'This will run only if successful'

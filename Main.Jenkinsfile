@@ -4,22 +4,22 @@ pipeline {
    stages {
       stage('Build') {
            parallel {
-               stage('C1-Reg') {
+               stage('C1-Reg-Service') {
                    steps {
                     build job: 'C1-Reg', propagate: true, wait: true
                    }
                }
-               stage('C2-Billing') {
+               stage('C2-Billing-Service') {
                    steps {
                       build job: 'C2-Billing', propagate: true, wait: true
                    }
                }
-               stage('C3-Coding') {
+               stage('C3-Payment-Service') {
                    steps {
                      build job: 'C3-Coding', propagate: true, wait: true
                    }
                }
-                stage('C4-Eligibility') {
+                stage('C4-Eligibility-Service') {
                    steps {
                      build job: 'C4-Eligibility', propagate: true, wait: true
                    }
