@@ -14,6 +14,101 @@ pipeline {
                 stage("Get Base Image") {
                     steps {
                                echo 'Get Base Image From artifactory'
+                    }
+                }
+                stage("Setup Firewall Rule") {
+                    steps {
+                            echo 'Setup Firewall Rule'
+                    }
+                }
+                stage("Install Jboss Web Server") {
+                    steps {
+                            echo 'Install Jboss Web Server'
+                    }
+                }
+                stage("Install Redis Server") {
+                    steps {
+                            echo 'Install Redis Server'
+                    }
+                 }
+            }
+            post {
+                success {
+                    echo 'Azure Base Image Created successful'
+                }
+            }
+            
+        }
+         stage('Prepare AWS Get Base Image') {
+             when {
+                    expression {
+                        params.InfraProvider=="aws"
+                    }
+	            }
+            stages {
+                stage("Get AWS Base Image") {
+                    steps {
+                               echo 'Get AWS Base Image From artifactory'
+                        }
+                    }
+                stage("Setup Firewall Rule") {
+                    steps {
+                            echo 'Setup Firewall Rule'
+                        }
+                    }
+                 stage("Install Jboss Web Server") {
+                    steps {
+                            echo 'Install Jboss Web Server'
+                        }
+                    }
+                 stage("Install Redis Server") {
+                    steps {
+                            echo 'Install Redis Server'
+                        }
+                    }
+            }
+            
+        }
+         stage('Prepare GCP Get Base Image') {
+             when {
+                    expression {
+                        params.InfraProvider=="gcp"
+                    }
+	            }
+            stages {
+                stage("Get GCP Base Image") {
+                    steps {
+                               echo 'Get AWS Base Image From artifactory'
+                        }
+                    }
+                stage("Setup Firewall Rule") {
+                    steps {
+                            echo 'Setup Firewall Rule'
+                        }
+                    }
+                 stage("Install Jboss Web Server") {
+                    steps {
+                            echo 'Install Jboss Web Server'
+                        }
+                    }
+                 stage("Install Redis Server") {
+                    steps {
+                            echo 'Install Redis Server'
+                        }
+                    }
+            }
+            
+        }
+        stage('Prepare OnPrem Get Base Image') {
+             when {
+                    expression {
+                        params.InfraProvider=="onprem"
+                    }
+	            }
+            stages {
+                stage("Get GCP Base Image") {
+                    steps {
+                               echo 'Get AWS Base Image From artifactory'
                         }
                     }
                 stage("Setup Firewall Rule") {
