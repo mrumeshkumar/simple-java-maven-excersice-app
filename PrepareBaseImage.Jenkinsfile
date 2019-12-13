@@ -7,7 +7,7 @@ pipeline {
         stage('Prepare Azure Get Base Image') {
              when {
                     expression {
-                        params.environment=="azure"
+                        params.InfraProvider=="azure"
                     }
 	            }
             stages {
