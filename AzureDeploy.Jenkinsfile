@@ -72,9 +72,9 @@ pipeline {
             steps {
                // input message: 'Are You ready for Production Deployment ? (Click "Proceed" to continue)'
                 bat """.\\jenkins\\scripts\\production.sh"""
-                 catchError() {
-                        bat "exit 1"
-                    }
+                // catchError() {
+                 //       bat "exit 1"
+                 //   }
             }
         }
         stage('Rollback - Production') {
