@@ -4,7 +4,7 @@ pipeline {
         string(defaultValue: "azure", description: 'What environment?', name: 'InfraProvider')
     }
     stages {
-        stage('Prepare Azure Get Base Image') {
+        stage('Prepare Azure Base Image') {
              when {
                     expression {
                         params.InfraProvider=="azure"
@@ -49,7 +49,7 @@ pipeline {
             }
             
         }
-         stage('Prepare AWS Get Base Image') {
+         stage('Prepare AWS Base Image') {
              when {
                     expression {
                         params.InfraProvider=="aws"
@@ -89,7 +89,7 @@ pipeline {
             }
             
         }
-         stage('Prepare GCP Get Base Image') {
+         stage('Prepare GCP Base Image') {
              when {
                     expression {
                         params.InfraProvider=="gcp"
@@ -129,7 +129,7 @@ pipeline {
             }
             
         }
-        stage('Prepare OnPrem Get Base Image') {
+        stage('Prepare OnPrem Base Image') {
              when {
                     expression {
                         params.InfraProvider=="onprem"
