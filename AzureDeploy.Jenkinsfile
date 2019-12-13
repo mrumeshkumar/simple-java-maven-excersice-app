@@ -58,9 +58,9 @@ pipeline {
             steps {
                     echo './deploy staging'
                     echo './run-smoke-tests'
-                    catchError() {
-                          bat "exit 1"
-                     }
+                  //  catchError() {
+                  //        bat "exit 1"
+                  //   }
                 }
         }
         stage('Deploy - Production') {
